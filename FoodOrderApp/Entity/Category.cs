@@ -6,5 +6,6 @@ namespace FoodOrderApp.Entity
         public string? CategoryName { get; set; }
         public string? CategoryImage  { get; set; }
         public string? CategoryDescription { get; set; }
+        public List<Product> Products{ get; set; } = new List<Product>();
     }
 }
