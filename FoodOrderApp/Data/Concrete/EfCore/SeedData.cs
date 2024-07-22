@@ -56,43 +56,50 @@ namespace FoodOrderApp.Data.Concrete.EfCore
                     );
                     context.SaveChanges();
                 }
+                // Seed Products
                 if (!context.Products.Any())
                 {
-                    context.Products.AddRange(
-                        new Entity.Product
-                        {
-                            ProductName = "Spicy Korean Noodles",
-                            //ProductImage = "noodle.svg",
-                            Price = 120,
-                            Description = "Delicious and spicy Korean noodles",
-                            CategoryId = context.Categories.First(c => c.CategoryName == "Kore").CategoryId
-                        },
-                        new Entity.Product
-                        {
-                            ProductName = "Terminal Pizza",
-                            //ProductImage = "food-1.png",
-                            Price = 120,
-                            Description = "Delicious Terminal Pizza",
-                            CategoryId = context.Categories.First(c => c.CategoryName == "Pizza").CategoryId
-                        },
-                        new Entity.Product
-                        {
-                            ProductName = "Position absolute Acı Pizza",
-                            //ProductImage = "food-2.png",
-                            Price = 120,
-                            Description = "Delicious and spicy pizza",
-                            CategoryId = context.Categories.First(c => c.CategoryName == "Pizza").CategoryId
-                        },
-                        new Entity.Product
-                        {
-                            ProductName = "useEffect Tavuklu Burger",
-                            //ProductImage = "food-3.png",
-                            Price = 120,
-                            Description = "Delicious burger with chicken",
-                            CategoryId = context.Categories.First(c => c.CategoryName == "Burger").CategoryId
-                        }
-                    );
+                    var koreCategory = context.Categories.FirstOrDefault(c => c.CategoryName == "Kore");
+                    var pizzaCategory = context.Categories.FirstOrDefault(c => c.CategoryName == "Pizza");
+                    var burgerCategory = context.Categories.FirstOrDefault(c => c.CategoryName == "Burger");
+
+                    if (koreCategory != null && pizzaCategory != null && burgerCategory != null)
+                    {
+                        context.Products.AddRange(
+                            new Entity.Product
+                            {
+                                ProductName = "Spicy Korean Noodles",
+                                Price = 120,
+                                Description = "Delicious and spicy Korean noodles",
+                                CategoryId = koreCategory.CategoryId
+                            },
+                            new Entity.Product
+                            {
+                                ProductName = "Terminal Pizza",
+                                Price = 120,
+                                Description = "Delicious Terminal Pizza",
+                                CategoryId = pizzaCategory.CategoryId
+                            },
+                            new Entity.Product
+                            {
+                                ProductName = "Position absolute Acı Pizza",
+                                Price = 120,
+                                Description = "Delicious and spicy pizza",
+                                CategoryId = pizzaCategory.CategoryId
+                            },
+                            new Entity.Product
+                            {
+                                ProductName = "useEffect Tavuklu Burger",
+                                Price = 120,
+                                Description = "Delicious burger with chicken",
+                                CategoryId = burgerCategory.CategoryId
+                            }
+                        );
+                        context.SaveChanges();
+                    }
                 }
+
+                // Seed Users
                 if (!context.Users.Any())
                 {
                     context.Users.AddRange(
@@ -130,6 +137,8 @@ namespace FoodOrderApp.Data.Concrete.EfCore
                     );
                     context.SaveChanges();
                 }
+
+                // Seed Materials
                 if (!context.Materials.Any())
                 {
                     context.Materials.AddRange(
@@ -148,43 +157,65 @@ namespace FoodOrderApp.Data.Concrete.EfCore
                     );
                     context.SaveChanges();
                 }
+
+                // Seed ProductVars
                 if (!context.ProductVars.Any())
                 {
-                    context.ProductVars.AddRange(
-                        new Entity.ProductVar
-                        {
-                            ProductId = context.Products.First(p => p.ProductName == "Pepperoni Pizza").ProductId,
-                            Price = 150,
-                            Materials = context.Materials.ToList() 
-                        }
-                    );
-                    context.SaveChanges();
+                    var pepperoniPizza = context.Products.FirstOrDefault(p => p.ProductName == "Terminal Pizza");
+                    var materials = context.Materials.ToList();
+
+                    if (pepperoniPizza != null && materials.Any())
+                    {
+                        context.ProductVars.AddRange(
+                            new Entity.ProductVar
+                            {
+                                ProductId = pepperoniPizza.ProductId,
+                                Price = 150,
+                                Materials = materials
+                            }
+                        );
+                        context.SaveChanges();
+                    }
                 }
+
+                // Seed Orders and Payments
                 if (!context.Orders.Any())
                 {
-                    var user = context.Users.First();
-                    var product = context.Products.First();
-                    var order = new Entity.Order
+                    var user = context.Users.FirstOrDefault();
+                    var product = context.Products.FirstOrDefault();
+
+                    if (user != null && product != null)
                     {
-                        TotalAmount = 150,
-                        UserId = user.UserId,
-                        Payment = new Entity.Payment
+                        var order = new Entity.Order
                         {
-                            PaymentId = 1, 
-                            Amount = 150
-                        },
-                        OrderProducts = new List<Entity.OrderProduct>
-                        {
-                            new Entity.OrderProduct
+                            TotalAmount = 150,
+                            UserId = user.UserId,
+                            OrderProducts = new List<Entity.OrderProduct>
                             {
-                                ProductId = product.ProductId,
-                                Quantity = 1,
-                                Price = product.Price
+                                new Entity.OrderProduct
+                                {
+                                    ProductId = product.ProductId,
+                                    Quantity = 1,
+                                    Price = product.Price
+                                }
                             }
-                        }
-                    };
-                    context.Orders.Add(order);
-                    context.SaveChanges();
+                        };
+
+                        context.Orders.Add(order);
+                        context.SaveChanges();
+
+                        var payment = new Entity.Payment
+                        {
+                            Amount = 150,
+                            PaymentDate = DateTime.UtcNow,
+                            PaymentMethod = "Card",
+                            OrderId = order.OrderId,
+                            CardId = user.Cards.FirstOrDefault()?.CardId // Handle case where there might be no cards
+                        };
+
+                        context.Payments.Add(payment);
+                        context.SaveChanges();
+                    }
                 }
             }
         }

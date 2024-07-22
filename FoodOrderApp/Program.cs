@@ -11,6 +11,8 @@ builder.Services.AddDbContext<AppDbContext>(options => {
 
 var app = builder.Build();
 
+SeedData.CreateTestData(app);
+
 app.MapGet("/", () => "Hello World!");
 
 app.Run();
