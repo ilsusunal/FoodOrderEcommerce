@@ -6,7 +6,7 @@ namespace FoodOrderApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class CategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
 
