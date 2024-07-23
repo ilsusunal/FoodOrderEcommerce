@@ -1,3 +1,4 @@
+using FoodOrderApp.Data;
 using FoodOrderApp.Data.Concrete.EfCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,10 +12,27 @@ builder.Services.AddDbContext<AppDbContext>(options => {
     options.UseSqlite(connectionString);
 });
 
+builder.Services.AddScoped<ICategoryRepository, EfCoreCategoryRepository>();
+
 var app = builder.Build();
+
 
 SeedData.CreateTestData(app);
 
-app.MapDefaultControllerRoute();
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
+app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.Run();
