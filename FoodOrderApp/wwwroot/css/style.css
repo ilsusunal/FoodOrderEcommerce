@@ -1,0 +1,510 @@
+.form-header {
+    width: 100%;
+    height: 100px;
+    background-color: #CE2829;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .form-header h1 {
+    display: flex;
+    justify-content: center;
+  }
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .nav-menu a {
+    text-decoration: none;
+    color: #292929;
+    margin: 50px 0;
+  }
+  .nav-menu a:hover{
+    color: #CE2829;
+  }
+  
+  .bej-part{
+    background-color: #FAF7F2;
+    display: flex;
+    flex-direction: column;
+    padding: 0 400px;
+    padding-bottom: 50px;
+    gap: 20px;
+  }
+  .bej-part-icerik {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .bej-part h2{
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .order-pizza-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .order-pizza-form section{
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 50px;
+    margin-bottom: 20px;
+  }
+  .order-pizza-form div{
+    margin: 20px 0;
+    max-width: 700px;
+  }
+  .pizza-info {
+    display: flex;
+    justify-content: space-between;
+  }
+  .order-pizza-form .boyut {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+  .order-pizza-form .boyut .form-group-row {
+    width: calc(50% - 10px); 
+    margin-right: 20px;
+  }
+  
+  .form-select{
+    background-color: #FAF7F2;
+    border-radius: 20px;
+    padding: 20px;
+    border: none;
+  }
+  .form-label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  .form-text {
+    display: block;
+    margin-bottom: 10px;
+  }
+  .form-check-label {
+    margin: 10px;
+  }
+  .form-check-input{
+    background-color: #FAF7F2;
+    border-radius: 20px;
+    padding: 20px;
+    border: none;
+  }
+  .invalid-feedback {
+    color: #CE2829;
+    margin-top: 20px;
+  }
+  .form-text-area{
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+  }
+  .form-text-area input{
+    background-color: #FAF7F2;
+    border-radius: 20px;
+    padding: 20px;
+    border: none;
+  }
+  
+  
+  .ekMalzemeler .material-columns {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  
+  }
+  .ekMalzemeler .material-item {
+    flex-basis: calc(33.33% - 10px);
+    margin-bottom: 10px;
+  }
+  .ekMalzemeler .material-item input[type="checkbox"] {
+    transform: scale(2); 
+    border: none !important; 
+    background-color: #FAF7F2 !important; 
+  }
+  
+  
+  .payment-container{
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #5F5F5F;
+    max-width: 700px;
+    margin: 50px auto;
+    padding: 50px;
+  }
+  .sayac-container {
+    display: block;
+    margin-right: 20px;
+    flex: 1;
+    height: 3rem;
+    border-radius: 4px;
+    display: flex;
+    background-color: #FAF7F2;
+    align-items: center;
+    font-weight: 400;
+  }
+  .sayac-container button {
+    background-color: #FAF7F2;
+  }
+  
+  .sayac-container form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .sayac-value {
+    padding: 20px;
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 16px;
+  }
+  
+  .siparis-container {
+    margin-left: 20px;
+    flex: 2;
+    align-items: flex-start;
+    padding-top: 20px;
+    border-radius: 4px;
+    gap: 10px;
+    flex-direction: column; 
+    background-color: #FAF7F2;
+  }
+  .siparis-container form{
+    flex: 1;
+    display: flex; 
+    flex-direction: column;
+  }
+  .siparis-container h2{
+    margin-bottom: 10px;
+    padding:10px 50px;
+  }
+  .siparis-container div {
+    display: flex;
+    justify-content: space-between; 
+    color: #292929; 
+    padding:0 50px ;
+    
+  }
+  .siparis-container div:nth-child(3) {
+    color: #CE2829;
+    font-weight: bold;
+    margin-bottom: 50px;
+  }
+  
+  /* BUTONLAR*/
+  button {
+    background-color: #FDC913;
+    border-radius: 4px;
+    border: white;
+    width: 100%;
+    height: 3rem;
+    padding: 0;
+    font-weight: bold;
+  }
+  button:hover {
+    background-color:#CE2829;
+    color: white;
+    cursor: pointer;
+    border: 1px solid white;
+  }
+  .anasayfa-buton{
+    width: 100px;
+  }
+  #success-buton{
+    width: 150px;
+    margin-bottom: 100px;
+    font-weight: 400;
+  }
+  
+  /* BAŞLIKLAR*/
+  .main-title {
+    font-family: Roboto Condensed;
+    font-size: 86px;
+    font-weight: 100;
+    display: flex;
+    justify-content: center;
+    
+  }
+  .secondary-title{
+    font-family: Satisfy;
+    color: #FDC913;
+    font-size: 32px;
+  }
+  
+  /* SUCCESS PAGE */
+  .success-page{
+    background-color: #CE2829;
+    color: white;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .success-page img {
+   margin: 56px;
+  }
+  .siparis-alindi{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    border-bottom: 1px solid white;
+  }
+  .siparis-alindi-info{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 50px;
+    max-width: 400px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid white;
+  }
+  .siparis-alindi-info h2:first-child{
+    margin-bottom: 100px;
+    font-size: 22px;
+  }
+  .siparis-form-info{
+    display: flex;
+    flex-direction: column;
+  }
+  .siparis-form-info div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+  .siparis-form-info p:nth-child(even) {
+    font-weight: 700;
+    margin-left: 10px;
+  }
+  .siparis-form-info p:nth-child(odd) {
+    margin-left: 80px;
+    font-weight: 400;
+  }
+  
+  .siparis-odeme-info{
+    margin: 50px 0px;
+    max-width: 700px;
+    padding: 50px;
+    border-radius: 4px;
+    border: 1px solid white;
+    color:white;
+    background-color: #CE2829;
+    font-size: 18px;
+  }
+  .siparis-odeme-info div{
+    display: flex;
+    justify-content: space-between;
+  }
+  .siparis-odeme-info h2{
+    margin-bottom: 40px;
+  }
+  
+  /*--------------------------------------- */
+  /* MAIN PAGE */
+  .main-nav {
+    width: 100%;
+    height: 100px;
+    padding: 10px 0;
+  }
+  .main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 20px;
+    display: flex; 
+    justify-content: space-evenly;
+  }
+  .main-nav a{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #292929;
+    font-weight: 500;
+    font-size: 18px;
+    border-radius: 50px;
+    padding: 10px 20px;
+  }
+  .main-nav a:hover{
+    background-color: #292929;
+    color: white;
+  }
+  .main-nav img {
+    width: 40px; 
+    height: 40px; 
+    margin-right: 5px;
+  }
+  
+  /*--------------------------------------- */
+  /* MAIN PAGE CARDS - GRID İLE*/
+  
+  .main-page{
+    background-color: #FAF7F2;
+    ;
+  }
+  .cards{
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 2rem;
+    height: 100%;
+    padding: 100px;
+  }
+  .overlay-content{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    text-align: start;
+  }
+  .card-1{
+    display: grid;
+    grid-row: span 2;
+    position: relative;
+  }
+  .card-2{
+    display: grid;
+    position: relative;
+  }
+  .card-1 img, .card-2 img {
+    border-radius: 30px;
+    object-fit: cover;
+  }
+  .card-button {
+    background-color: white;
+    color: #CE2829;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    width: 140px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  .card-button:hover {
+    background-color: #FDC913;
+    
+  }
+  .card-title{
+    color:  white;
+    font-size: 32px;
+  }
+  .card-1 h1{
+    font-size: 68px;
+    font-weight: 700;
+    font-family: Quattrocento;
+  }
+  .card-text{
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  /*--------------------------------------- */
+  /* MAIN PAGE VİTRİN - GRID İLE*/
+  .vitrin{
+    display: grid;
+    justify-items: center;
+  }
+  .secondary-nav {
+    height: 100px;
+    padding: 10px;
+  }
+  .secondary-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 20px;
+    display: flex; 
+    justify-content: space-evenly;
+  }
+  .secondary-nav a{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 50px;
+    background-color: white;
+    color: #292929;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 10px 20px;
+  }
+  .secondary-nav a:hover{
+    background-color: #292929;
+    color: white;
+  }
+  .secondary-nav img {
+    width: 40px; 
+    height: 40px; 
+    margin-right: 5px;
+  }
+  .vitrin-card-container{
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 50px;
+  }
+  .vitrin-card-container p{
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .vitrin-card-container p:last-child{
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .vitrin-card-container h4{
+    font-size: 22px;
+    font-weight: 600;
+  }
+  .vitrin-cards {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  /*--------------------------------------- */
+  /* MAIN FOOTER*/
+  
+  footer {
+    background-color: #1A1A1A;
+    height: 500px;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+  }
+  footer div{
+    margin-top: 50px;
+  }
+  footer ul {
+    padding: 10px;
+    list-style-type: none;
+  }
+  footer li{
+    text-decoration: none;
+  }
+  .secondary-footer{
+    height: 100px;
+    border-top: 1px solid white;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .secondary-footer p{
+    margin-left: 50px;
+  }
+  footer img{
+    padding: 5px;
+  }
+  

@@ -20,8 +20,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(connectionString);
 });
 
-builder.Services.AddScoped<ICategoryRepository, EfCoreCategoryRepository>();
-builder.Services.AddScoped<IProductRepository, EfCoreProductRepository>();
 
 var app = builder.Build();
 
