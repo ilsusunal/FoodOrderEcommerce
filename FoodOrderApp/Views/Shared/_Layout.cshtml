@@ -9,9 +9,25 @@
     <link rel="stylesheet" href="~/css/style.css">
     <title>Document</title>
 </head>
-
 <body>
-
+    <header>
+        <img src="" alt="">
+        <img src="" alt="">
+            <h1 className='main-title'>KOD ACIKTIRIR <br /> PİZZA DOYURUR</h1>
+    <button className='anasayfa-buton' data-cy="mainpage-button" onClick={handleButton}>ACIKTIM</button>
+    </div>
+    <nav className='main-nav'>
+        <ul>
+            <li><a href="/"><img alt="Kore" />YENİ! Kore</a></li>
+            <li><a href="/"><img alt="Pizza" />Pizza</a></li>
+            <li><a href="/"><img alt="Burger" />Burger</a></li>
+            <li><a href="/"><img alt="Kızartmalar" />Kızartmalar</a></li>
+            <li><a href="/"><img alt="Fast Food" />Fast Food</a></li>
+            <li><a href="/"><img alt="Gazlı İçecek" />Gazlı İçecek</a></li>
+        </ul>
+    </nav>
+    </header>
+    @RenderBody()
 </body>
 
 </html>
