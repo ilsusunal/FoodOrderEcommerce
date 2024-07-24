@@ -104,6 +104,99 @@ namespace FoodOrderApp.Data.Concrete.EfCore
                     }
                 }
 
+                // Addresses
+                if (!context.Addresses.Any())
+                {
+                    context.Addresses.AddRange(
+                        new Entity.Address
+                        {
+                            AddressName = "Home",
+                            City = "Istanbul",
+                            District = "Kadikoy",
+                            Neighbourhood = "Moda",
+                            Street = "Sahil Yolu",
+                            AptNo = 1
+                        },
+                        new Entity.Address
+                        {
+                            AddressName = "Office",
+                            City = "Ankara",
+                            District = "Cankaya",
+                            Neighbourhood = "Kizilay",
+                            Street = "Ataturk Bulvari",
+                            AptNo = 2
+                        }
+                    );
+                    context.SaveChanges();
+                }
+
+                // Cards
+                if (!context.Cards.Any())
+                {
+                    context.Cards.AddRange(
+                        new Entity.Card
+                        {
+                            CardNo = 1234567890123456,
+                            ExpireMonth = 12,
+                            ExpireYear = 2025,
+                            NameOnCard = "John Doe"
+                        },
+                        new Entity.Card
+                        {
+                            CardNo = 6543210987654321,
+                            ExpireMonth = 11,
+                            ExpireYear = 2023,
+                            NameOnCard = "Jane Doe"
+                        }
+                    );
+                    context.SaveChanges();
+                }
+
+                // Users
+                if (!context.Users.Any())
+                {
+                    context.Users.AddRange(
+                        new Entity.User
+                        {
+                            FullName = "John Doe",
+                            Email = "john@example.com",
+                            Password = "password123",
+                            //PhoneNumber = 1234567890
+                        },
+                        new Entity.User
+                        {
+                            FullName = "Jane Doe",
+                            Email = "jane@example.com",
+                            Password = "password123",
+                            //PhoneNumber = 9876543210
+                        }
+                    );
+                    context.SaveChanges();
+                }
+
+                // ShoppingCart
+                if (!context.ShoppingCarts.Any())
+                {
+                    var user1 = context.Users.FirstOrDefault(u => u.Email == "john@example.com");
+                    var user2 = context.Users.FirstOrDefault(u => u.Email == "jane@example.com");
+
+                    if (user1 != null && user2 != null)
+                    {
+                        context.ShoppingCarts.AddRange(
+                            new Entity.ShoppingCart
+                            {
+                                TotalAmount = 0,
+                                UserId = user1.UserId
+                            },
+                            new Entity.ShoppingCart
+                            {
+                                TotalAmount = 0,
+                                UserId = user2.UserId
+                            }
+                        );
+                        context.SaveChanges();
+                    }
+                }
             }
         }
     }
