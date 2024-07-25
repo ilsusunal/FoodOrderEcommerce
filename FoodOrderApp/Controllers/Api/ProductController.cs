@@ -1,6 +1,8 @@
 using FoodOrderApp.Data.Abstract;
+using FoodOrderApp.DTOs;
 using FoodOrderApp.Entity;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace FoodOrderApp.Controllers
@@ -16,15 +18,28 @@ namespace FoodOrderApp.Controllers
             _productRepository = productRepository;
         }
 
+        private ProductDto MapToDto(Product product)
+        {
+            return new ProductDto
+            {
+                ProductId = product.ProductId,
+                ProductName = product.ProductName,
+                Price = product.Price,
+                Description = product.Description,
+                CategoryId = product.CategoryId
+            };
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetProducts([FromQuery] int? category)
         {
+            var products = await _productRepository.GetAllAsync();
             if (category.HasValue)
             {
-                var products = await _productRepository.GetAllAsync();
-                return Ok(products.Where(p => p.CategoryId == category.Value));
+                products = products.Where(p => p.CategoryId == category.Value).ToList();
             }
-            return Ok(await _productRepository.GetAllAsync());
+            var productDtos = products.Select(MapToDto);
+            return Ok(productDtos);
         }
 
         [HttpGet("{id}")]
@@ -35,32 +50,54 @@ namespace FoodOrderApp.Controllers
             {
                 return NotFound();
             }
-            return Ok(product);
+            return Ok(MapToDto(product));
         }
 
         [HttpGet("search")]
         public async Task<IActionResult> SearchProducts([FromQuery] string query)
         {
             var products = await _productRepository.GetAllAsync();
-            return Ok(products.Where(p => p.ProductName.Contains(query, StringComparison.OrdinalIgnoreCase)));
+            var filteredProducts = products.Where(p => p.ProductName.Contains(query, StringComparison.OrdinalIgnoreCase));
+            var productDtos = filteredProducts.Select(MapToDto);
+            return Ok(productDtos);
         }
 
         [HttpPost]
         [Route("admin/products")]
-        public async Task<IActionResult> CreateProduct([FromBody] Product product)
+        public async Task<IActionResult> CreateProduct([FromBody] ProductDto productDto)
         {
+            var product = new Product
+            {
+                ProductName = productDto.ProductName,
+                Price = productDto.Price,
+                Description = productDto.Description,
+                CategoryId = productDto.CategoryId
+            };
+
             await _productRepository.AddAsync(product);
-            return CreatedAtAction(nameof(GetProduct), new { id = product.ProductId }, product);
+            var createdProductDto = MapToDto(product);
+            return CreatedAtAction(nameof(GetProduct), new { id = product.ProductId }, createdProductDto);
         }
 
         [HttpPut]
         [Route("admin/products/{id}")]
-        public async Task<IActionResult> UpdateProduct(int id, [FromBody] Product product)
+        public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductDto productDto)
         {
-            if (id != product.ProductId)
+            if (id != productDto.ProductId)
             {
                 return BadRequest();
             }
+
+            var product = await _productRepository.GetByIdAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            product.ProductName = productDto.ProductName;
+            product.Price = productDto.Price;
+            product.Description = productDto.Description;
+            product.CategoryId = productDto.CategoryId;
 
             await _productRepository.UpdateAsync(product);
             return NoContent();
@@ -70,6 +107,12 @@ namespace FoodOrderApp.Controllers
         [Route("admin/products/{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
+            var product = await _productRepository.GetByIdAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
             await _productRepository.DeleteAsync(id);
             return NoContent();
         }
