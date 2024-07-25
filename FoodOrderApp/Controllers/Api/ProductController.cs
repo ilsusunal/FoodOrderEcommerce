@@ -1,6 +1,7 @@
 using FoodOrderApp.Data.Abstract;
 using FoodOrderApp.DTOs;
 using FoodOrderApp.Entity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
@@ -64,8 +65,13 @@ namespace FoodOrderApp.Controllers
 
         [HttpPost]
         [Route("admin/products")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateProduct([FromBody] ProductDto productDto)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return BadRequest(); 
+            }
             var product = new Product
             {
                 ProductName = productDto.ProductName,
@@ -81,8 +87,13 @@ namespace FoodOrderApp.Controllers
 
         [HttpPut]
         [Route("admin/products/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductDto productDto)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return BadRequest(); 
+            }
             if (id != productDto.ProductId)
             {
                 return BadRequest();
@@ -105,8 +116,13 @@ namespace FoodOrderApp.Controllers
 
         [HttpDelete]
         [Route("admin/products/{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
+            if (!User.IsInRole("Admin"))
+            {
+                return BadRequest(); 
+            }
             var product = await _productRepository.GetByIdAsync(id);
             if (product == null)
             {
