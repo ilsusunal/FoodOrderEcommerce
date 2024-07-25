@@ -5,7 +5,7 @@
 namespace FoodOrderApp.Migrations
 {
     /// <inheritdoc />
-    public partial class CategoryUpdate : Migration
+    public partial class InitialCreatePasswordChange : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

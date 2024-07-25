@@ -1,12 +1,12 @@
 using FoodOrderApp.Entity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FoodOrderApp.Data.Concrete.EfCore
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options){}
-        public DbSet<User> Users => Set<User>();
         public DbSet<Card> Cards => Set<Card>();
         public DbSet<Address> Addresses => Set<Address>();
         public DbSet<ShoppingCart> ShoppingCarts => Set<ShoppingCart>();

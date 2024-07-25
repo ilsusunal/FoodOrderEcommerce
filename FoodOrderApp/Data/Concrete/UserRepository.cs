@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FoodOrderApp.Data.Concrete.EfCore
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IUserRepository<User>
     {
         private readonly AppDbContext _context;
 
@@ -17,12 +17,20 @@ namespace FoodOrderApp.Data.Concrete.EfCore
 
         public async Task<IEnumerable<User>> GetAllAsync()
         {
-            return await _context.Users.Include(u => u.Orders).ToListAsync();
+            return await _context.Users
+                .Include(u => u.UserCards)
+                .Include(u => u.UserAddresses)
+                .Include(u => u.Orders)
+                .ToListAsync();
         }
 
-        public async Task<User> GetByIdAsync(int id)
+        public async Task<User> GetByIdAsync(string id)
         {
-            return await _context.Users.Include(u => u.Orders).FirstOrDefaultAsync(u => u.UserId == id);
+            return await _context.Users
+                .Include(u => u.UserCards)
+                .Include(u => u.UserAddresses)
+                .Include(u => u.Orders)
+                .FirstOrDefaultAsync(u => u.Id == id);
         }
 
         public async Task AddAsync(User entity)
@@ -37,7 +45,7 @@ namespace FoodOrderApp.Data.Concrete.EfCore
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(string id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user != null)

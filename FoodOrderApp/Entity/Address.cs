@@ -8,7 +8,7 @@ namespace FoodOrderApp.Entity
         public string? District { get; set; }
         public string? Neighbourhood { get; set; }
         public string? Street { get; set; }
-        public int AptNo { get; set; }
+        public int? AptNo { get; set; }
         public List<UserAddress> UserAddresses { get; set; } = new List<UserAddress>();
         public List<Order> Orders { get; set; } = new List<Order>();
     }

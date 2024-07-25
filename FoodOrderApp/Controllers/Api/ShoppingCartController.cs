@@ -17,7 +17,7 @@ namespace FoodOrderApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCart([FromQuery] int userId)
+        public async Task<IActionResult> GetCart([FromQuery] string userId)
         {
             var cart = await _shoppingCartRepository.GetAllAsync();
             return Ok(cart.FirstOrDefault(c => c.UserId == userId));
@@ -67,7 +67,6 @@ namespace FoodOrderApp.Controllers
         [Route("order")]
         public async Task<IActionResult> CreateOrder([FromBody] Order order)
         {
-            // Assuming order creation logic here
             await _shoppingCartRepository.UpdateAsync(order.Cart);
             return CreatedAtAction(nameof(GetCart), new { userId = order.Cart.UserId }, order);
         }

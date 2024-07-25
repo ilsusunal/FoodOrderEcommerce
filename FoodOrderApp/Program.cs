@@ -3,6 +3,8 @@ using FoodOrderApp.Data.Abstract;
 using FoodOrderApp.Data.Concrete;
 using FoodOrderApp.Data.Concrete.EfCore;
 using FoodOrderApp.Entity;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -20,6 +22,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     var connectionString = config.GetConnectionString("sql_connection");
     options.UseSqlite(connectionString);
 });
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
 // CORS 
 builder.Services.AddCors(options =>
 {
@@ -31,17 +37,25 @@ builder.Services.AddCors(options =>
                 .AllowAnyMethod();
         });
 });
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.LogoutPath = "/Account/Logout";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+        options.SlidingExpiration = true;
+    });
+    
 builder.Services.AddScoped<IRepository<Category>, CategoryRepository>();
 builder.Services.AddScoped<IRepository<Product>, ProductRepository>();
 builder.Services.AddScoped<IRepository<Order>, OrderRepository>();
-builder.Services.AddScoped<IRepository<User>, UserRepository>();
+builder.Services.AddScoped<IUserRepository<User>, UserRepository>();
 
 var app = builder.Build();
 
 app.UseCors("AllowLocalhost");
 
-SeedData.CreateTestData(app);
+await SeedData.CreateTestData(app);
 
 if (app.Environment.IsDevelopment())
 {
@@ -50,10 +64,9 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
-
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
@@ -175,6 +188,16 @@ app.MapControllerRoute(
 
 // User Management
 app.MapControllerRoute(
+    name: "register",
+    pattern: "user/register",
+    defaults: new { controller = "User", action = "Register" });
+
+app.MapControllerRoute(
+    name: "login",
+    pattern: "user/login",
+    defaults: new { controller = "User", action = "Login" });
+
+app.MapControllerRoute(
     name: "user_details",
     pattern: "user/{id}",
     defaults: new { controller = "User", action = "GetUser" });
@@ -223,6 +246,7 @@ app.MapControllerRoute(
     name: "delete_user_card",
     pattern: "user/cards/{id}",
     defaults: new { controller = "User", action = "DeleteUserCard" });
+
 
 
 app.Run();
