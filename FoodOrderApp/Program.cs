@@ -20,6 +20,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     var connectionString = config.GetConnectionString("sql_connection");
     options.UseSqlite(connectionString);
 });
+// CORS 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 
 builder.Services.AddScoped<IRepository<Category>, CategoryRepository>();
 builder.Services.AddScoped<IRepository<Product>, ProductRepository>();
@@ -28,6 +39,7 @@ builder.Services.AddScoped<IRepository<User>, UserRepository>();
 
 var app = builder.Build();
 
+app.UseCors("AllowLocalhost");
 
 SeedData.CreateTestData(app);
 
@@ -36,12 +48,15 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthorization();
+
+app.MapControllers();
 
 // Home
 app.MapControllerRoute(
