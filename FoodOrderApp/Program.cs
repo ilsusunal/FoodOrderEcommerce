@@ -80,7 +80,7 @@ app.MapControllers();
 // Home
 app.MapControllerRoute(
     name: "home",
-    pattern: "/",
+    pattern: "",
     defaults: new { controller = "Home", action = "Index" });
 
 // Products

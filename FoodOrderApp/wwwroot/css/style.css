@@ -454,7 +454,10 @@
     background-color: white;
     padding: 20px;
     border-radius: 20px;
-    margin: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
   }
   .vitrin-card-container p{
     display: flex;
@@ -474,6 +477,10 @@
     display: flex;
     justify-content: space-around;
   }
+  .vitrin-card-container img {
+    width: auto;
+    max-height: 240px;
+}
   
   /*--------------------------------------- */
   /* MAIN FOOTER*/

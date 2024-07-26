@@ -17,11 +17,21 @@ namespace FoodOrderApp.Controllers
             _productRepository = productRepository;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Index()
+        [HttpGet("")]
+        [Route("home/index/{categoryId?}")]
+        public async Task<IActionResult> Index(int? categoryId)
         {
             var categories = await _categoryRepository.GetAllAsync();
-            var products = await _productRepository.GetAllAsync();
+            IEnumerable<Product> products;
+
+            if (categoryId.HasValue)
+            {
+                products = (await _productRepository.GetAllAsync()).Where(p => p.CategoryId == categoryId.Value);
+            }
+            else
+            {
+                products = await _productRepository.GetAllAsync();
+            }
 
             var viewModel = new HomePageViewModel
             {
@@ -31,5 +41,6 @@ namespace FoodOrderApp.Controllers
 
             return View(viewModel);
         }
+
     }
 }
