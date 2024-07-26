@@ -58,10 +58,11 @@
                 @foreach (var category in Model.Categories)
                 {
                     <li>
-                        <a asp-controller="Home" asp-action="Index" asp-route-categoryId="@category.CategoryId"
+                        <a href="@Url.Action("Index", "Home", new { categoryId = category.CategoryId })"
                             class="category-link">
                             <img src="/img/@category.CategoryImage" alt="@category.CategoryName" />@category.CategoryName
                         </a>
+
                     </li>
                 }
             </ul>
