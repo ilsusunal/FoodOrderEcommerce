@@ -10,6 +10,9 @@ This is a simple API for managing food orders, built with ASP.NET Core.
 
 ## Representation of ERP Diagramme
 
+![database sunum](https://github.com/user-attachments/assets/d6649187-53e0-4f36-be1c-52667a3d3027)
+
+
 ## Endpoints
 
 ### User
