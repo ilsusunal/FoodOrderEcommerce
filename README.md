@@ -7,7 +7,6 @@ This is a simple API for managing food orders, built with ASP.NET Core.
 - User registration and authentication (with cookie-based authentication)
 - CRUD operations for products
 - User address and card management
-- Swagger UI for API documentation
 
 ## ERP Diagramme
 
